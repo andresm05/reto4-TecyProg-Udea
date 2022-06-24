@@ -46,5 +46,12 @@ public class Empresa {
         this.ventas = ventas;
     }
     
-    
+    public Panel buscarPanel(int id){
+        for(Panel panel: paneles){
+            if(panel.getId()==id){
+                return panel;
+            }
+        }
+        return null;
+    }
 }

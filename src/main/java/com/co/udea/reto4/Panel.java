@@ -5,13 +5,15 @@
  */
 package com.co.udea.reto4;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author HOME
  */
 public class Panel {
 
-    private static int existencias;
+    private static int existencias = 0;
     private final int id;
     private String serie;
     private String descripcion;
@@ -20,15 +22,36 @@ public class Panel {
     private int anio;
     private double precio;
 
-    public Panel(String serie, String descripcion, String tipo, String modelo, int anio, double precio) {
+    public Panel(String descripcion, String tipo, String modelo, int anio, double precio) {
         existencias++;
         this.id = existencias;
-        this.serie = serie;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.modelo = modelo;
         this.anio = anio;
         this.precio = precio;
+    }
+
+    public Panel() {
+        existencias++;
+        this.id = existencias;
+    }
+
+    public String verificarEstado() {
+        LocalDate fechaActual = LocalDate.now();
+        int anioActual = fechaActual.getYear();
+        int periodo = anioActual - anio;
+
+        if (periodo >= 0 && periodo <= 1) {
+            return "Nuevo";
+        }
+        if (periodo > 1 && periodo <= 4) {
+            return "Medianamente usado";
+        }
+        if (periodo > 4) {
+            return "Usado";
+        }
+        return "Valor fuera de rango";
     }
 
     public static int getExistencias() {
@@ -90,7 +113,12 @@ public class Panel {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Panel{" + "\n id= " + id + "\n serie= " + serie + "\n descripcion= " 
+                + descripcion + "\n tipo= " + tipo + "\n modelo= " + modelo + "\n año= " + anio + "\n precio= " + precio + '}';
+    }
+
     
 }
